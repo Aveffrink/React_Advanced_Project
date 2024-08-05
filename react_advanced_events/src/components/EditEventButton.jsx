@@ -272,11 +272,11 @@ export const EditEventButton = ({ event, updateEvent }) => {
               </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button type="submit" mr={4} onClick={handleSubmit}>
-                Edit event
-              </Button>
               <Button variant="ghost" onClick={onClose} mr={4}>
                 Cancel
+              </Button>
+              <Button type="submit" mr={4} onClick={handleSubmit}>
+                Edit event
               </Button>
             </ModalFooter>
           </ModalContent>
