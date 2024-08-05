@@ -13,11 +13,13 @@ import {
   Checkbox,
   FormControl,
   FormLabel,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { PostEvent } from "./PostEvent";
 
 export const AddEvent = ({ addNewEvent }) => {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [createdBy, setCreatedBy] = useState("");
   const [title, setTitle] = useState("");
@@ -129,6 +131,13 @@ export const AddEvent = ({ addNewEvent }) => {
       setGamesChecked(false);
       setRelaxationChecked(false);
       onClose();
+      toast({
+        title: "Event added.",
+        description: "You have added an event.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error("Error posting event:", error);
     }
