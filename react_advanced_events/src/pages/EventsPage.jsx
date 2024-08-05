@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import { useLoaderData } from "react-router-dom";
 import { EventsCard } from "../components/EventsCard";
 import { CategoryCheckboxes } from "../components/CategoryCheckboxes";
@@ -86,21 +86,28 @@ export const EventsPage = () => {
       ></CategoryCheckboxes>
       <TextInput changeFn={handleChange} />
       <AddEvent addNewEvent={addNewEvent}></AddEvent>
-      <Flex
-        flexDirection="row"
-        justifyContent="center"
-        alignItems="center"
-        spacing={3}
-        flexWrap={"wrap"}
-      >
-        {matchedEvents.map((event) => (
-          <EventsCard
-            key={event.id}
-            event={event}
-            categories={categories}
-          ></EventsCard>
-        ))}
-      </Flex>
+
+      {matchedEvents.length === 0 ? (
+        <Text align="center" color="red.500" marginTop="1rem" fontSize="3xl">
+          No events found
+        </Text>
+      ) : (
+        <Flex
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={3}
+          flexWrap={"wrap"}
+        >
+          {matchedEvents.map((event) => (
+            <EventsCard
+              key={event.id}
+              event={event}
+              categories={categories}
+            ></EventsCard>
+          ))}
+        </Flex>
+      )}
     </>
   );
 };
