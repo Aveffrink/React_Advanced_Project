@@ -7,7 +7,7 @@ export const Navigation = () => {
     <Box background="green.600">
       <nav>
         <Heading color="white" padding="1rem" align="center">
-          <Link to="/">Events</Link>
+          <Link to="/">Homepage</Link>
         </Heading>
       </nav>
     </Box>
