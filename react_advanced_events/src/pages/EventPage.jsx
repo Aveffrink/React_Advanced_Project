@@ -6,15 +6,26 @@ import { DeleteEventButton } from "../components/DeleteEventButton";
 import { EditEventButton } from "../components/EditEventButton";
 
 export const loader = async ({ params }) => {
-  const users = await fetch("http://localhost:3000/users");
-  const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
-  const categories = await fetch("http://localhost:3000/categories");
+  try {
+    const usersResponse = await fetch("http://localhost:3000/users");
+    const eventResponse = await fetch(
+      `http://localhost:3000/events/${params.eventId}`
+    );
+    const categoriesResponse = await fetch("http://localhost:3000/categories");
 
-  return {
-    users: await users.json(),
-    event: await event.json(),
-    categories: await categories.json(),
-  };
+    if (!usersResponse.ok || !eventResponse.ok || !categoriesResponse.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const users = await usersResponse.json();
+    const event = await eventResponse.json();
+    const categories = await categoriesResponse.json();
+
+    return { users, event, categories };
+  } catch (error) {
+    console.error("Error loading data:", error);
+    return { users: [], event: null, categories: [] };
+  }
 };
 
 export const EventPage = () => {
