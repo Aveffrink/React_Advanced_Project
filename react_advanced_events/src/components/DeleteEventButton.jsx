@@ -8,10 +8,12 @@ import {
   ModalFooter,
   ModalOverlay,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export const DeleteEventButton = ({ event }) => {
+  const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
@@ -27,6 +29,13 @@ export const DeleteEventButton = ({ event }) => {
         );
       }
       navigate("/");
+      toast({
+        title: "Event deleted.",
+        description: "You have deleted an event.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error("An error occurred while deleting an event:", error);
     }
@@ -48,15 +57,15 @@ export const DeleteEventButton = ({ event }) => {
           <ModalCloseButton />
 
           <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
             <Button
               colorScheme="orange"
               marginRight="12px"
               onClick={() => handleDelete()}
             >
               Yes, delete
-            </Button>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Cancel
             </Button>
           </ModalFooter>
         </ModalContent>
